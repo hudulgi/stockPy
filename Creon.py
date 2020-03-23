@@ -11,10 +11,12 @@ class Creon():
             print("PLUS가 정상적으로 연결되지 않음.")
             exit()
 
+        self.objStockMst = win32com.client.Dispatch("Dscbo1.StockMst")
+        self.objCpCodeMgr = win32com.client.Dispatch("CpUtil.CpCodeMgr")
+
     def requestCode(self, market):
         # 코드 데이터 요청
-        instCpCodeMgr = win32com.client.Dispatch("CpUtil.CpCodeMgr")
-        codelist = instCpCodeMgr.GetStockListByMarket(market)  # 1 코스피, 2 코스닥
+        codelist = self.objCpCodeMgr.GetStockListByMarket(market)  # 1 코스피, 2 코스닥
         return codelist
 
     def requestData(self, code, startdate, enddate):
@@ -110,8 +112,28 @@ class Creon():
 
         return openPR
 
+    def get_open(self, code):
+        # SetInputValue
+        self.objStockMst.SetInputValue(0, code)  # 종목코드
+
+        # BlockRequest
+        self.objStockMst.BlockRequest()
+
+        # 통신 결과 확인
+        rqStatus = self.objStockMst.GetDibStatus()
+        rqRet = self.objStockMst.GetDibMsg1()
+        print("통신상태", rqStatus, rqRet)
+        if rqStatus != 0:
+            return False
+
+        # GetHeaderValue
+        name = self.objStockMst.GetHeaderValue(1)  # 종목명
+        openPR = self.objStockMst.GetHeaderValue(13)  # 시가
+        mrktFlag = chr(self.objStockMst.GetHeaderValue(59))  # 장 구분 플래그 (장중=2)
+
+        return openPR, name, mrktFlag
+
     def getName(self, code):
-        instCpCodeMgr = win32com.client.Dispatch("CpUtil.CpCodeMgr")
-        name = instCpCodeMgr.CodeToName(code)
+        name = self.objCpCodeMgr.CodeToName(code)
 
         return name
