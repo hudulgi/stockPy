@@ -13,6 +13,7 @@ class Creon():
 
         self.objStockMst = win32com.client.Dispatch("Dscbo1.StockMst")
         self.objCpCodeMgr = win32com.client.Dispatch("CpUtil.CpCodeMgr")
+        self.objStockChart = win32com.client.Dispatch("CpSysDib.StockChart")
 
     def requestCode(self, market):
         # 코드 데이터 요청
@@ -21,7 +22,7 @@ class Creon():
 
     def requestData(self, code, startdate, enddate):
         # Create object
-        chart = win32com.client.Dispatch("CpSysDib.StockChart")
+        chart = self.objStockChart
 
         # SetInputValue
         chart.SetInputValue(0, code) #종목코드
@@ -58,7 +59,7 @@ class Creon():
 
     def requestData2(self, code, numHist):
         # Create object
-        chart = win32com.client.Dispatch("CpSysDib.StockChart")
+        chart = self.objStockChart
 
         # SetInputValue
         chart.SetInputValue(0, code)  #종목코드
@@ -133,7 +134,13 @@ class Creon():
 
         return openPR, name, mrktFlag
 
-    def getName(self, code):
+    def get_name(self, code):
         name = self.objCpCodeMgr.CodeToName(code)
 
         return name
+
+    def get_start_time(self):
+        # 장 시작시간
+        st = self.objCpCodeMgr.GetMarketStartTime()
+
+        return st
