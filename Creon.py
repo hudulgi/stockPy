@@ -131,8 +131,9 @@ class Creon():
         name = self.objStockMst.GetHeaderValue(1)  # 종목명
         openPR = self.objStockMst.GetHeaderValue(13)  # 시가
         mrktFlag = chr(self.objStockMst.GetHeaderValue(59))  # 장 구분 플래그 (장중=2)
+        stateFlag = chr(self.objStockMst.GetHeaderValue(68))  # 장 구분 플래그 (장중=2)
 
-        return openPR, name, mrktFlag
+        return openPR, name, mrktFlag, stateFlag
 
     def get_name(self, code):
         name = self.objCpCodeMgr.CodeToName(code)
