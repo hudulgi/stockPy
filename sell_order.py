@@ -2,6 +2,7 @@ import sys
 import win32com.client
 import ctypes
 import time
+from dt_alimi import *
 
 
 ################################################
@@ -173,6 +174,8 @@ class CpRPOrder:
 
 
 if __name__ == "__main__":
+    bot.sendMessage(myId, "매도 주문을 시작합니다.")
+
     # plus 상태 체크
     if InitPlusCheck() == False:
         exit()
@@ -186,8 +189,14 @@ if __name__ == "__main__":
 
     order = CpRPOrder()
 
+    msg = []
+
     for cd, item in jango.items():
-        print(cd, item['종목명'], item['매도가능'])
+        temp = "%s %s %i" % (cd, item['종목명'], item['매도가능'])
+        print(temp)
+        msg.append(temp+'\n')
         if order.sellOrder(cd, item['매도가능']):
             print("매도 주문 완료")
         time.sleep(1)
+
+    bot.sendMessage(myId, msg)
