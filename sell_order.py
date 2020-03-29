@@ -174,7 +174,7 @@ class CpRPOrder:
 
 
 if __name__ == "__main__":
-    bot.sendMessage(myId, "매도 주문을 시작합니다.")
+    bot.sendMessage(myId, "매도 주문 시작")
 
     # plus 상태 체크
     if InitPlusCheck() == False:
@@ -194,9 +194,9 @@ if __name__ == "__main__":
     for cd, item in jango.items():
         temp = "%s %s %i" % (cd, item['종목명'], item['매도가능'])
         print(temp)
-        msg.append(temp+'\n')
         if order.sellOrder(cd, item['매도가능']):
             print("매도 주문 완료")
+            msg.append(temp + '\n')
         time.sleep(1)
 
-    bot.sendMessage(myId, msg)
+    bot.sendMessage(myId, "".join(msg))
