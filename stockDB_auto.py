@@ -3,6 +3,7 @@ from datetime import date, timedelta, datetime
 import time
 from sqlalchemy import create_engine
 from DB import *
+from dt_alimi import *
 import pymysql
 pymysql.install_as_MySQLdb()
 
@@ -42,6 +43,7 @@ class StockDB:
             self.cursor.execute(sql)
             self.conn.commit()
 
+bot.sendMessage(myId, "DB 업데이트 시작")
 
 cr = Creon.Creon()
 
@@ -110,3 +112,4 @@ for code in codelist:
 
 # DB 접속 종료
 myDb.close()
+bot.sendMessage(myId, "DB 업데이트 완료")
