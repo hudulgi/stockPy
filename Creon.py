@@ -2,7 +2,7 @@ import win32com.client
 import pandas as pd
 
 
-class Creon():
+class Creon:
     def __init__(self):
         # 연결 여부 체크
         objCpCybos = win32com.client.Dispatch("CpUtil.CpCybos")
