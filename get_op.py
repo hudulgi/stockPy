@@ -69,5 +69,6 @@ while code_list2:
         finishCode = 1
 
 print(resultDf)
-resultDf.to_csv('C://Users//JHOO//iCloudDrive//stock//stock_data//target_open.csv', index=False)
+resultDf.to_csv('C://Users//JHOO//iCloudDrive//stock//stock_data//open_price//op_' + nowDate.strftime("%y%m%d") +
+                '.csv', index=False)
 bot.sendMessage(myId, "시가 불러오기를 완료하였습니다. 종료코드:%i" % finishCode)
