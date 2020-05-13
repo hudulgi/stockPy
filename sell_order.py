@@ -199,4 +199,5 @@ if __name__ == "__main__":
             msg.append(temp + '\n')
         time.sleep(1)
 
-    bot.sendMessage(myId, "".join(msg))
+    if msg:
+        bot.sendMessage(myId, "".join(msg))
