@@ -187,9 +187,9 @@ if __name__ == "__main__":
     jangoData = {}
 
     # 잔고 요청
-    jango = obj6033.requestJango(account)
+    jango = obj6033.requestJango()
 
-    order = CpRPOrder()
+    order = CpRPOrder(account)
 
     msg = list()
     msg.append('계좌번호: %s\n' % account)
