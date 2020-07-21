@@ -38,8 +38,7 @@ def InitPlusCheck():
 ################################################
 # Cp6033 : 주식 잔고 조회
 class Cp6033:
-    def __init__(self):
-        acc = g_objCpTrade.AccountNumber[0]  # 계좌번호
+    def __init__(self, acc):
         accFlag = g_objCpTrade.GoodsList(acc, 1)  # 주식상품 구분
         print(acc, accFlag[0])
 
@@ -108,8 +107,8 @@ class Cp6033:
 ################################################
 # 주식 주문 처리
 class CpRPOrder:
-    def __init__(self):
-        self.acc = g_objCpTrade.AccountNumber[0]  # 계좌번호
+    def __init__(self, acc):
+        self.acc = acc
         self.accFlag = g_objCpTrade.GoodsList(self.acc, 1)  # 주식상품 구분
         #print(self.acc, self.accFlag[0])
         self.objOrder = win32com.client.Dispatch("CpTrade.CpTd0311")  # 매수
@@ -180,16 +179,20 @@ if __name__ == "__main__":
     if InitPlusCheck() == False:
         exit()
 
+    # 계좌 정의
+    account = g_objCpTrade.AccountNumber[0]  # 계좌번호지정 (복수계좌 사인온 실패했을 경우를 위해 기본0번계좌 지정)
+
     # 6033 잔고 object
-    obj6033 = Cp6033()
+    obj6033 = Cp6033(account)
     jangoData = {}
 
     # 잔고 요청
-    jango = obj6033.requestJango()
+    jango = obj6033.requestJango(account)
 
     order = CpRPOrder()
 
-    msg = []
+    msg = list()
+    msg.append('계좌번호: %s\n' % account)
 
     for cd, item in jango.items():
         temp = "%s %s %i" % (cd, item['종목명'], item['매도가능'])
