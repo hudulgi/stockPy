@@ -145,3 +145,7 @@ class Creon:
         st = self.objCpCodeMgr.GetMarketStartTime()
 
         return st
+
+    def check_overheat(self, code):
+        result = self.objCpCodeMgr.GetOverHeating(code)
+        return result

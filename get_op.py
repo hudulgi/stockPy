@@ -56,9 +56,12 @@ while code_list2:
         if code not in code_list2:
             continue
         op, name, marketFlag, state = cr.get_open(code)
-        print(code, name, op, marketFlag, state)
+        ov = cr.check_overheat(code)
+        print(code, name, op, marketFlag, state, ov)
 
-        if state == 'Y':
+        if ov == 2 or ov == 3:
+            code_list2.remove(code)
+        elif state == 'Y':
             code_list2.remove(code)
         elif marketFlag == '2':
             temp = pd.Series([code, name, op], index=['code', 'name', 'open'])
