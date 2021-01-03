@@ -15,17 +15,20 @@ base_path = "C:\\CloudStation\\dt_data"
 data_path = base_path + "\\target"
 open_path = base_path + "\\daily_data\\open_price"
 
+target_name = "target_list_2021.csv"
+ignore_name = "ignore_item.csv"
+
 bot.sendMessage(myId, "시가 불러오기를 시작합니다.")
 
 finishCode = 0
 
 cr = Creon.Creon()
 
-targetTable = pd.read_csv(data_path + '\\target_list.csv')
+targetTable = pd.read_csv(data_path + '\\' + target_name)
 code_list = targetTable['code'].to_list()
 code_list2 = code_list[:]
 
-ignoreItem = pd.read_csv(data_path + '\\ignore_item.csv')
+ignoreItem = pd.read_csv(data_path + '\\' + ignore_name)
 nowDate = datetime.datetime.now().date()
 for item in ignoreItem.iterrows():
     if item[1]['code'] not in code_list:

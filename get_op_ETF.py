@@ -15,13 +15,15 @@ base_path = "C:\\CloudStation\\dt_data"
 data_path = base_path + "\\target"
 open_path = base_path + "\\daily_data\\open_price"
 
+target_name = "target_ETF.csv"
+
 bot.sendMessage(myId, "시가 불러오기를 시작합니다.")
 
 finishCode = 0
 
 cr = Creon.Creon()
 
-targetTable = pd.read_csv(data_path + '\\target_ETF.csv')
+targetTable = pd.read_csv(data_path + '\\' + target_name)
 code_list = targetTable['code'].to_list()
 code_list2 = code_list[:]
 
