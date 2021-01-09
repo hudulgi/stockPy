@@ -2,7 +2,7 @@ import Creon
 from datetime import date, timedelta, datetime
 import time
 from sqlalchemy import create_engine
-from DB import *
+from DB_info import *
 from dt_alimi import *
 import pymysql
 pymysql.install_as_MySQLdb()
