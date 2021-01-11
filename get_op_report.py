@@ -26,7 +26,7 @@ target_name = ["target_list_2021.csv", "target_ETF.csv"]
 
 code_list_tot = []
 for tg in target_name:
-    code_list_tot.append(import_target_code(tg))
+    code_list_tot += import_target_code(tg)
 
 nowDate = datetime.datetime.now().date()
 resultDf = pd.DataFrame(columns=['code', 'name', 'open'])
