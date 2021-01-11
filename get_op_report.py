@@ -37,9 +37,9 @@ for code in code_list_tot:
 
     if state == 'Y':
         continue
-    elif marketFlag == '2':
-        temp = pd.Series([code, name, op], index=['code', 'name', 'open'])
-        resultDf = resultDf.append(temp, ignore_index=True)
+
+    temp = pd.Series([code, name, op], index=['code', 'name', 'open'])
+    resultDf = resultDf.append(temp, ignore_index=True)
 
     time.sleep(0.3)
 
