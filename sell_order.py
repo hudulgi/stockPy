@@ -173,7 +173,8 @@ class CpRPOrder:
 
 
 if __name__ == "__main__":
-    bot.sendMessage(myId, "매도 주문 시작")
+    telg = Telegram(token)
+    telg.send_msg(telegram_id, "매도 주문 시작")
 
     # plus 상태 체크
     if InitPlusCheck() == False:
@@ -203,4 +204,4 @@ if __name__ == "__main__":
         time.sleep(1)
 
     if msg:
-        bot.sendMessage(myId, "".join(msg))
+        telg.send_msg(telegram_id, "".join(msg))
