@@ -43,7 +43,9 @@ class StockDB:
             self.cursor.execute(sql)
             self.conn.commit()
 
-bot.sendMessage(myId, "DB 업데이트 시작")
+
+telg = Telegram(token)
+telg.send_msg(telegram_id, "DB 업데이트 시작")
 
 cr = Creon.Creon()
 
@@ -112,4 +114,4 @@ for code in codelist:
 
 # DB 접속 종료
 myDb.close()
-bot.sendMessage(myId, "DB 업데이트 완료")
+telg.send_msg(telegram_id, "DB 업데이트 완료")

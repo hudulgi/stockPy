@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import time
 from dt_alimi import *
+import dt_config
 
 
 def date_split(line):
@@ -11,14 +12,16 @@ def date_split(line):
     return date2
 
 
-base_path = "C:\\CloudStation\\dt_data"
+base_path = dt_config.data_path
 data_path = base_path + "\\target"
 open_path = base_path + "\\daily_data\\open_price"
+chat_id = dt_config.telegram_id
 
 target_name = "target_list_2021.csv"
 ignore_name = "ignore_item.csv"
 
-bot.sendMessage(myId, "시가 불러오기를 시작합니다.")
+telg = Telegram(dt_config.token)
+telg.send_msg(chat_id, "시가 불러오기를 시작합니다.")
 
 finishCode = 0
 
@@ -39,7 +42,7 @@ for item in ignoreItem.iterrows():
         if nowDate <= endDate:
             code_list2.remove(item[1]['code'])
             print('제외: %s %s' % (item[1]['code'], item[1]['name']))
-            bot.sendMessage(myId, '제외: %s %s' % (item[1]['code'], item[1]['name']))
+            telg.send_msg(chat_id, '제외: %s %s' % (item[1]['code'], item[1]['name']))
 
 resultDf = pd.DataFrame(columns=['code', 'name', 'open'])
 
@@ -80,4 +83,4 @@ while code_list2:
 
 print(resultDf)
 resultDf.to_csv(open_path + '\\op_' + nowDate.strftime("%y%m%d") + '.csv', index=False)
-bot.sendMessage(myId, "시가 불러오기를 완료하였습니다. 종료코드:%i" % finishCode)
+telg.send_msg(chat_id, "시가 불러오기를 완료하였습니다. 종료코드:%i" % finishCode)
