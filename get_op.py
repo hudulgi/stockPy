@@ -71,7 +71,7 @@ while code_list2:
 
         if ov == 2 or ov == 3:
             code_list2.remove(code)
-        elif state == 'Y':
+        elif state != 'N':  # 거래정지 종목이지만 Y가 아니라 공백 값을 가지고 있는 경우가 있음
             code_list2.remove(code)
         elif marketFlag == '2':
             temp = pd.Series([code, name, op], index=['code', 'name', 'open'])
